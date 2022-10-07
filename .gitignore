@@ -11,3 +11,7 @@ bin
 .project*
 .classpath
 .idea/
+daemon
+caches
+native
+wrapper
