@@ -36,11 +36,11 @@ public class Differ {
         // отсутствует плюс или минус(- timeout: 50, + timeout: 20)
         //3 - ключ присутствует в первом файле, но отсутствует во втором файле - (- follow: false)
         //4 - ключ отсутствует в первом файле, но присутствует во втором файле - (+ verbose: true)
-        StringBuilder resultOfComparingTwoFiles = new StringBuilder("{\n");
+        StringBuilder resultOfComparingTwoFiles = new StringBuilder("{\r\n");
         for (String key : commonKeys) {
 
-            String str1 = key + ": " + contentKeyValueFirstMap.get(key) + "\n";
-            String str2 = key + ": " + contentKeyValueSecondMap.get(key) + "\n";
+            String str1 = key + ": " + contentKeyValueFirstMap.get(key) + "\r\n";
+            String str2 = key + ": " + contentKeyValueSecondMap.get(key) + "\r\n";
 
             if (contentKeyValueFirstMap.containsKey(key) && !contentKeyValueSecondMap.containsKey(key)) {
                 resultOfComparingTwoFiles.append("- ").append(str1);
