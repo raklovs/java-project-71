@@ -3,7 +3,6 @@ package hexlet.code;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,7 +16,7 @@ public class Differ {
         Path firstAbsolutePathToTheFile = Paths.get(firstFilePath).toAbsolutePath().normalize();
         Path secondAbsolutePathToTheFile = Paths.get(secondFilePath).toAbsolutePath().normalize();
         //Читаем файл: {"host": "hexlet.io","timeout": 50,"proxy": "123.234.53.22","follow": false}
-        String firstFileContent = Files.readString(firstAbsolutePathToTheFile);//Читаем файл
+        String firstFileContent = Files.readString(firstAbsolutePathToTheFile);
         String secondFileContent = Files.readString(secondAbsolutePathToTheFile);
         //создаем объект класса ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
@@ -33,7 +32,8 @@ public class Differ {
 
         // Варианты условий
         //1 - ключ есть в обоих файлах, и его значения совпадают - отсутствует плюс или минус(host: hexlet.io)
-        //2 - ключ есть в обоих файлах, и его значения не совпадают - отсутствует плюс или минус(- timeout: 50, + timeout: 20)
+        //2 - ключ есть в обоих файлах, и его значения не совпадают -
+        // отсутствует плюс или минус(- timeout: 50, + timeout: 20)
         //3 - ключ присутствует в первом файле, но отсутствует во втором файле - (- follow: false)
         //4 - ключ отсутствует в первом файле, но присутствует во втором файле - (+ verbose: true)
         StringBuilder resultOfComparingTwoFiles = new StringBuilder("{\n");

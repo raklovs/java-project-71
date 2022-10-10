@@ -16,10 +16,12 @@ public class App implements Callable<Integer> {
 
     @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
     private boolean usageHelpRequested;
-    @CommandLine.Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
-        private boolean versionInfoRequested;
-    @CommandLine.Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
-        private String format = "stylish";
+    @CommandLine.Option(names = {"-V", "--version"}, versionHelp = true,
+            description = "Print version information and exit.")
+    private boolean versionInfoRequested;
+    @CommandLine.Option(names = {"-f", "--format"}, paramLabel = "format",
+            description = "output format [default: stylish]")
+    private String format = "stylish";
 
     @Override
     public Integer call() throws Exception {
