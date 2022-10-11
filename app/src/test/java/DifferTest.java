@@ -19,9 +19,16 @@ public class DifferTest {
         this.content = Files.readString(absolutePathToTheFile);
     }
     @Test
-    public void testGenerate() throws Exception {
+    public void testGenerateJsonToJson() throws Exception {
         var expected = content;
         String actual = Differ.generate("./src/test/resources/file1Test.json", "./src/test/resources/file2Test.json");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGenerateYmlToJYml() throws Exception {
+        var expected = content;
+        String actual = Differ.generate("./src/test/resources/file1Test.yml", "./src/test/resources/file2Test.yml");
         assertEquals(expected, actual);
     }
 

@@ -15,3 +15,4 @@ daemon
 caches
 native
 wrapper
+.tmp

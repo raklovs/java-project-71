@@ -1,30 +1,25 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Differ {
     public static String generate(String firstFilePath, String secondFilePath) throws Exception {
+
         // Формируем абсолютный путь: C:\Users\Sergey\java-project-71\app\src\main\resources\file1.json
         Path firstAbsolutePathToTheFile = Paths.get(firstFilePath).toAbsolutePath().normalize();
         Path secondAbsolutePathToTheFile = Paths.get(secondFilePath).toAbsolutePath().normalize();
+
         //Читаем файл: {"host": "hexlet.io","timeout": 50,"proxy": "123.234.53.22","follow": false}
         String firstFileContent = Files.readString(firstAbsolutePathToTheFile);
         String secondFileContent = Files.readString(secondAbsolutePathToTheFile);
-        //создаем объект класса ObjectMapper
-        ObjectMapper objectMapper = new ObjectMapper();
-        //получаем contentKeyValueFirstMap = {host=hexlet.io, timeout=50, proxy=123.234.53.22, follow=false}
-        Map<String, Object> contentKeyValueFirstMap = objectMapper.readValue(firstFileContent, new TypeReference<>() {
-        });
-        Map<String, Object> contentKeyValueSecondMap = objectMapper.readValue(secondFileContent, new TypeReference<>() {
-        });
+
+        var contentKeyValueFirstMap = Parser.convertingStringOfTextToDataJson(firstFileContent);
+        var contentKeyValueSecondMap = Parser.convertingStringOfTextToDataJson(secondFileContent);
+
         Set<String> commonKeys = new TreeSet<>();
         //Объекты хранятся в отсортированном и возрастающем порядке - commonKeys = [follow, host, proxy, timeout]
         commonKeys.addAll(contentKeyValueFirstMap.keySet());
