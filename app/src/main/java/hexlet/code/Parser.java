@@ -32,4 +32,16 @@ public class Parser {
         return objectMapper.readValue(fileContent, new TypeReference<>() {
         });
     }
+
+    public static Map<String, Object> formatSwitch(String filePath, String fileFormat) throws Exception {
+        switch (fileFormat) {
+            case "yml" -> {
+                return convertingStringOfTextToDataYAML(filePath);
+            }
+            case "json" -> {
+                return convertingStringOfTextToDataJson(filePath);
+            }
+            default -> throw new Exception("Unknown format: '" + fileFormat + "'");
+        }
+    }
 }
