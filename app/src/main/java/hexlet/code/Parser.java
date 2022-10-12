@@ -25,12 +25,11 @@ public class Parser {
         });
     }
 
-    public static Map<String, Object> convertingStringOfTextToDataYAML(String fileContent)
+    public static Map convertingStringOfTextToDataYAML(String fileContent)
             throws JsonProcessingException {
         //создаем объект класса ObjectMapper
         ObjectMapper objectMapper = new YAMLMapper();
-        return objectMapper.readValue(fileContent, new TypeReference<>() {
-        });
+        return objectMapper.readValue(fileContent, Map.class);
     }
 
     public static Map<String, Object> formatSwitch(String filePath, String fileFormat) throws Exception {

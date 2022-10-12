@@ -9,3 +9,7 @@
 Шаг 5, файлы изменились относительно друг друга
 
 ![img2.png](app/src/main/resources/img2.png)
+
+Шаг 7, сравнение плоских файлов (yaml) 
+
+![img.png](app/src/main/resources/img3.png)

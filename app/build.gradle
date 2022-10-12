@@ -13,7 +13,7 @@ group 'hexlet.code'
 version '1.0-SNAPSHOT'
 
 compileJava {
-    options.release = 16
+    options.release = 17
 }
 
 repositories {
