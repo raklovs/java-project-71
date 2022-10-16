@@ -1,88 +1,34 @@
 package hexlet.code;
 
-import java.util.Set;
-import java.util.TreeSet;
+import hexlet.code.formatter.Formatter;
+
+import java.util.Map;
 
 public class Differ {
-    public static String generate(String firstFilePath, String secondFilePath) throws Exception {
+    public static String generate(String firstFilePath, String secondFilePath, String format) throws Exception {
+        //на вход приходит полный путь к двум файлам
+        //переход к методу readFile() и возврат результата
+        //content1 = {"host": "hexlet.io","timeout": 50,"proxy": "123.234.53.22","follow": false}
+        String content1 = FileUtils.readFile(firstFilePath);
+        //content2 = {"timeout": 20,"verbose": true,"host": "hexlet.io"}
+        String contain2 = FileUtils.readFile(secondFilePath);
+        //переход к методу getDataFormat()
+        String extension1 = FileUtils.getDataFormat(firstFilePath);//extension1 = "json"
+        String extension2 = FileUtils.getDataFormat(secondFilePath);//extension2 = "json"
+        //переход к методу getData()
+        Map<String, Object> data1 = Parser.getData(content1, extension1);//
+        Map<String, Object> data2 = Parser.getData(contain2, extension2);
 
-        String firstFileContent = Parser.workingWithFilePaths(firstFilePath);
-        String secondFileContent = Parser.workingWithFilePaths(secondFilePath);
+        Map<String, Item> differ = Differences.getDiff(data1, data2);//differ(TreeMap) = follow,host,proxy,timeout,verbose
 
-//        var contentKeyValueFirstMap = Parser.convertingStringOfTextToDataJson(firstFileContent);
-//        var contentKeyValueSecondMap = Parser.convertingStringOfTextToDataJson(secondFileContent);
-        var contentKeyValueFirstMap = Parser.convertingStringOfTextToDataYAML(firstFileContent);
-        var contentKeyValueSecondMap = Parser.convertingStringOfTextToDataYAML(secondFileContent);
-        Set<String> commonKeys = new TreeSet<>();
-        //Объекты хранятся в отсортированном и возрастающем порядке - commonKeys = [follow, host, proxy, timeout]
-        commonKeys.addAll(contentKeyValueFirstMap.keySet());
-        commonKeys.addAll(contentKeyValueSecondMap.keySet());
+        return Formatter.getFormat(differ, format);
 
-        // Варианты условий
-        //1 - ключ есть в обоих файлах, и его значения совпадают - отсутствует плюс или минус(host: hexlet.io)
-        //2 - ключ есть в обоих файлах, и его значения не совпадают -
-        // отсутствует плюс или минус(- timeout: 50, + timeout: 20)
-        //3 - ключ присутствует в первом файле, но отсутствует во втором файле - (- follow: false)
-        //4 - ключ отсутствует в первом файле, но присутствует во втором файле - (+ verbose: true)
-        StringBuilder resultOfComparingTwoFiles = new StringBuilder("{\r\n");
-        for (String key : commonKeys) {
-
-            String str1 = key + ": " + contentKeyValueFirstMap.get(key) + "\r\n";
-            String str2 = key + ": " + contentKeyValueSecondMap.get(key) + "\r\n";
-
-            if (contentKeyValueFirstMap.containsKey(key) && !contentKeyValueSecondMap.containsKey(key)) {
-                resultOfComparingTwoFiles.append("- ").append(str1);
-            } else if (contentKeyValueFirstMap.containsKey(key) && contentKeyValueSecondMap.containsKey(key)
-                    && contentKeyValueFirstMap.get(key).equals(contentKeyValueSecondMap.get(key))) {
-                resultOfComparingTwoFiles.append("  ").append(str1);
-            } else if (!contentKeyValueFirstMap.containsKey(key) && contentKeyValueSecondMap.containsKey(key)) {
-                resultOfComparingTwoFiles.append("+ ").append(str2);
-            } else {
-                resultOfComparingTwoFiles.append("- ").append(str1);
-                resultOfComparingTwoFiles.append("+ ").append(str2);
-            }
-        }
-        return resultOfComparingTwoFiles + "}";
     }
 
-    public static void main(String[] args) throws Exception {
+    public static String generate(String firstFilePath, String secondFilePath) throws Exception {
+        //на вход приходит полный путь к двум файлам
+        //перегрузка и перевод к методу generate() вверх
+        return generate(firstFilePath, secondFilePath, "stylish");
 
-        String firstFileContent = Parser.workingWithFilePaths("app/src/test/resources/file1Test.yml");
-        String secondFileContent = Parser.workingWithFilePaths("app/src/test/resources/file2Test.yml");
-//        ObjectMapper objectMapper = new YAMLMapper();
-//        var contentKeyValueFirstMap = objectMapper.readValue(firstFileContent, Map.class);
-//        var contentKeyValueSecondMap = objectMapper.readValue(secondFileContent, Map.class);
-        var contentKeyValueFirstMap = Parser.convertingStringOfTextToDataYAML(firstFileContent);
-        var contentKeyValueSecondMap = Parser.convertingStringOfTextToDataYAML(secondFileContent);
-        Set<String> commonKeys = new TreeSet<>();
-        //Объекты хранятся в отсортированном и возрастающем порядке - commonKeys = [follow, host, proxy, timeout]
-        commonKeys.addAll(contentKeyValueFirstMap.keySet());
-        commonKeys.addAll(contentKeyValueSecondMap.keySet());
-
-        // Варианты условий
-        //1 - ключ есть в обоих файлах, и его значения совпадают - отсутствует плюс или минус(host: hexlet.io)
-        //2 - ключ есть в обоих файлах, и его значения не совпадают -
-        // отсутствует плюс или минус(- timeout: 50, + timeout: 20)
-        //3 - ключ присутствует в первом файле, но отсутствует во втором файле - (- follow: false)
-        //4 - ключ отсутствует в первом файле, но присутствует во втором файле - (+ verbose: true)
-        StringBuilder resultOfComparingTwoFiles = new StringBuilder("{\r\n");
-        for (String key : commonKeys) {
-
-            String str1 = key + ": " + contentKeyValueFirstMap.get(key) + "\r\n";
-            String str2 = key + ": " + contentKeyValueSecondMap.get(key) + "\r\n";
-
-            if (contentKeyValueFirstMap.containsKey(key) && !contentKeyValueSecondMap.containsKey(key)) {
-                resultOfComparingTwoFiles.append("- ").append(str1);
-            } else if (contentKeyValueFirstMap.containsKey(key) && contentKeyValueSecondMap.containsKey(key)
-                    && contentKeyValueFirstMap.get(key).equals(contentKeyValueSecondMap.get(key))) {
-                resultOfComparingTwoFiles.append("  ").append(str1);
-            } else if (!contentKeyValueFirstMap.containsKey(key) && contentKeyValueSecondMap.containsKey(key)) {
-                resultOfComparingTwoFiles.append("+ ").append(str2);
-            } else {
-                resultOfComparingTwoFiles.append("- ").append(str1);
-                resultOfComparingTwoFiles.append("+ ").append(str2);
-            }
-        }
-        System.out.println(resultOfComparingTwoFiles + "}");
     }
 }

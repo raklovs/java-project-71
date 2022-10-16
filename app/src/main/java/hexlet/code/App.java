@@ -19,15 +19,15 @@ public class App implements Callable<Integer> {
     @CommandLine.Option(names = {"-V", "--version"}, versionHelp = true,
             description = "Print version information and exit.")
     private boolean versionInfoRequested;
-    @CommandLine.Option(names = {"-f", "--format"}, paramLabel = "format",
+    @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "stylish",
             description = "output format [default: stylish]")
-    private String format = "stylish";
+    private String format;
 
     @Override
     public Integer call() throws Exception {
         String diff;
         try {
-            diff = Differ.generate(firstFilePath, secondFilePath);
+            diff = Differ.generate(firstFilePath, secondFilePath, format);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
