@@ -62,13 +62,13 @@ class AppTest {
         String filePath2 = getPath("file2." + format).toString();
 
         //переход к методу generate()
-        //assertEquals(resultStylish, Differ.generate(filePath1, filePath2));
+        assertEquals(resultStylish, Differ.generate(filePath1, filePath2));
         assertEquals(resultArrayJson, Differ.generate(filePath1, filePath2));
-        //assertEquals(resultStylish, Differ.generate(filePath1, filePath2, "stylish"));
-        //assertEquals(resultPlain, Differ.generate(filePath1, filePath2, "plain"));
+        assertEquals(resultStylish, Differ.generate(filePath1, filePath2, "stylish"));
+        assertEquals(resultPlain, Differ.generate(filePath1, filePath2, "plain"));
 
-        //String actualJson = Differ.generate(filePath1, filePath2, "json");
-        //JSONAssert.assertEquals(resultJson, actualJson, false);
+        String actualJson = Differ.generate(filePath1, filePath2, "json");
+        JSONAssert.assertEquals(resultJson, actualJson, false);
 
     }
 
