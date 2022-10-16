@@ -21,7 +21,8 @@ class AppTest {
     private  final String pathToDirectory = "app/src/test/resources/";
 
     private static Path getFixturePath(String fileName) {
-        //получить абсолютный путь к файлу: C:\Users\Sergey\java-project-71\app\src\test\resources\fixtures\result_json.json
+        //получить абсолютный путь к
+        // файлу: C:\Users\Sergey\java-project-71\app\src\test\resources\fixtures\result_json.json
         return Paths.get("src", "test", "resources", "fixtures", fileName)
                 .toAbsolutePath().normalize();
     }
