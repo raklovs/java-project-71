@@ -8,7 +8,9 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static hexlet.code.FileUtils.*;
+import static hexlet.code.FileUtils.YAML;
+import static hexlet.code.FileUtils.YML;
+import static hexlet.code.FileUtils.JSON;
 
 public class Parser {
 
@@ -18,8 +20,8 @@ public class Parser {
             case YAML, YML -> {
                 return parseYml(content);
             }
-            case JSON -> {//сработал этот метод
-                return parseJson(content);//переход к методу parseJson()
+            case JSON -> { //сработал этот метод
+                return parseJson(content); //переход к методу parseJson()
             }
             default -> throw new Exception("Unknown format: '" + dataFormat + "'");
         }
@@ -35,7 +37,8 @@ public class Parser {
     }
 
     public static Map<String, Object> parseJson(String content) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();//на вход пришел content: {"host": "hexlet.io","timeout": 50,"proxy": "123.234.53.22","follow": false}
+        //на вход пришел content: {"host": "hexlet.io","timeout": 50,"proxy": "123.234.53.22","follow": false}
+        ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(content, new TypeReference<TreeMap<String, Object>>() {
         });
     }

@@ -11,7 +11,9 @@ public class Formatter {
 
             case "plain" -> Plain.makePlain(differ);
             case "json" -> Json.makeJson(differ);
-            case  "stylish" -> Stylish.makeStylish(differ);//переходим в метод makeStylish() и вернулось {- follow: false host: hexlet.io - proxy: 123.234.53.22 - timeout: 50 + timeout: 20 + verbose: tru}
+            //переходим в метод makeStylish() и вернулось {- follow: false host: hexlet.io - proxy: 123.234.53.22 -
+            // timeout: 50 + timeout: 20 + verbose: tru}
+            case "stylish" -> Stylish.makeStylish(differ);
             default -> throw new Exception("Formatting error");
 
         };

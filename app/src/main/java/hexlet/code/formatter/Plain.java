@@ -5,7 +5,10 @@ import hexlet.code.Item;
 import java.util.List;
 import java.util.Map;
 
-import static hexlet.code.Item.*;
+import static hexlet.code.Item.ADDED;
+import static hexlet.code.Item.DELETED;
+import static hexlet.code.Item.CHANGED;
+import static hexlet.code.Item.UNCHANGED;
 
 public class Plain {
 
@@ -26,7 +29,8 @@ public class Plain {
                 case CHANGED -> result.append("Property '").append(item.getKey())
                         .append("' was updated. From ").append(oldValue)
                         .append(" to ").append(newValue).append("\r\n");
-                case UNCHANGED -> { }
+                case UNCHANGED -> {
+                }
                 default -> throw new Exception("Incorrect status: '" + item.getValue().getStatus() + "'");
             }
         }

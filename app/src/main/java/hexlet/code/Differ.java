@@ -13,14 +13,13 @@ public class Differ {
         //content2 = {"timeout": 20,"verbose": true,"host": "hexlet.io"}
         String contain2 = FileUtils.readFile(secondFilePath);
         //переход к методу getDataFormat()
-        String extension1 = FileUtils.getDataFormat(firstFilePath);//extension1 = "json"
-        String extension2 = FileUtils.getDataFormat(secondFilePath);//extension2 = "json"
+        String extension1 = FileUtils.getDataFormat(firstFilePath); //extension1 = "json"
+        String extension2 = FileUtils.getDataFormat(secondFilePath); //extension2 = "json"
         //переход к методу getData()
-        Map<String, Object> data1 = Parser.getData(content1, extension1);//
+        Map<String, Object> data1 = Parser.getData(content1, extension1);
         Map<String, Object> data2 = Parser.getData(contain2, extension2);
-
-        Map<String, Item> differ = Differences.getDiff(data1, data2);//differ(TreeMap) = follow,host,proxy,timeout,verbose
-
+        //differ(TreeMap) = follow,host,proxy,timeout,verbose
+        Map<String, Item> differ = Differences.getDiff(data1, data2);
         return Formatter.getFormat(differ, format);
 
     }

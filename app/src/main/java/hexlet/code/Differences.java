@@ -1,8 +1,15 @@
 package hexlet.code;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
-import static hexlet.code.Item.*;
+import static hexlet.code.Item.ADDED;
+import static hexlet.code.Item.DELETED;
+import static hexlet.code.Item.UNCHANGED;
+import static hexlet.code.Item.CHANGED;
 
 public class Differences {
 
@@ -11,12 +18,12 @@ public class Differences {
         Map<String, Item> differ = new TreeMap<>();
 
         Set<String> allKey = new TreeSet<>();
-        allKey.addAll(dataFileOne.keySet());//добавлены ключи из 1 мапы - follow,host,proxy,timeout
-        allKey.addAll(dataFileTwo.keySet());//добавлены ключи из 2 мапы - host,timeout,verbose
+        allKey.addAll(dataFileOne.keySet()); //добавлены ключи из 1 мапы - follow,host,proxy,timeout
+        allKey.addAll(dataFileTwo.keySet()); //добавлены ключи из 2 мапы - host,timeout,verbose
         //на выходе получили упорядоченные ключи без дубликатов - allKey = follow,host,proxy,timeout,verbose
-        for (String key : allKey) {//1key = follow,2key=host,3key=proxy,4key=timeout,5key=verbose
-            Object oldValue = dataFileOne.get(key);//полчение 1 ключа follow(false) и т.д.
-            Object newValue = dataFileTwo.get(key);//полчение 1 ключа follow(null) и т.д.
+        for (String key : allKey) { //1key = follow,2key=host,3key=proxy,4key=timeout,5key=verbose
+            Object oldValue = dataFileOne.get(key); //полчение 1 ключа follow(false) и т.д.
+            Object newValue = dataFileTwo.get(key); //полчение 1 ключа follow(null) и т.д.
 
             if (!dataFileOne.containsKey(key)) {
                 differ.put(key, new Item(newValue, ADDED));
@@ -28,6 +35,6 @@ public class Differences {
                 differ.put(key, new Item(oldValue, newValue, CHANGED));
             }
         }
-        return differ;//на выходе получили тримап
+        return differ; //на выходе получили тримап
     }
 }
