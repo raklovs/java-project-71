@@ -19,7 +19,8 @@ public class Stylish {
         result.append("{"); //действия - положить в result открывающую скобку
         //в item ключ - follow, value - (oldValue,newValue,status) берутся из класса Item
         for (Map.Entry<String, Item> item : differ.entrySet()) {
-            result.append("\r\n").append(" ".repeat(2)); //действия - перевод строки + повтор пробела 2 раза
+            result.append("\n").append(" ".repeat(2)); //добавь"\r\n"//действия - перевод строки
+            // + повтор пробела 2 раза
             switch (item.getValue().getStatus()) { //из item получает DELETED
                 case ADDED:
                     result.append("+").append(" ")
@@ -32,7 +33,7 @@ public class Stylish {
                 case CHANGED:
                     result.append("-").append(" ")
                             .append(item.getKey()).append(": ").append(item.getValue().getOldValue());
-                    result.append("\r\n").append(" ".repeat(2)).append("+").append(" ")
+                    result.append("\n").append(" ".repeat(2)).append("+").append(" ") ////добавь"\r\n"
                             .append(item.getKey()).append(": ").append(item.getValue().getNewValue());
                     break;
                 case UNCHANGED:
@@ -44,6 +45,6 @@ public class Stylish {
 
             }
         }
-        return result.append("\r\n}").toString();
+        return result.append("\n}").toString(); //добавь"\r\n"
     }
 }

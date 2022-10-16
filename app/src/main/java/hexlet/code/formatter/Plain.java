@@ -25,10 +25,10 @@ public class Plain {
                 case ADDED -> result.append("Property '").append(item.getKey())
                         .append("' was added with value: ").append(oldValue).append("\n");
                 case DELETED -> result.append("Property '").append(item.getKey())
-                        .append("' was removed").append("\r\n");
+                        .append("' was removed").append("\n"); //добавь "\r\n"
                 case CHANGED -> result.append("Property '").append(item.getKey())
                         .append("' was updated. From ").append(oldValue)
-                        .append(" to ").append(newValue).append("\r\n");
+                        .append(" to ").append(newValue).append("\n"); //"\r\n"
                 case UNCHANGED -> {
                 }
                 default -> throw new Exception("Incorrect status: '" + item.getValue().getStatus() + "'");
