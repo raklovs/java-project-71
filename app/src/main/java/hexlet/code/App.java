@@ -8,6 +8,7 @@ import java.util.concurrent.Callable;
         description = "Compares two configuration files and shows a difference.")
 
 public class App implements Callable<Integer> {
+    private final Integer errorCode = 123;
 
     @CommandLine.Parameters(index = "0", description = "path to first file")
     private String firstFilePath;
@@ -24,16 +25,14 @@ public class App implements Callable<Integer> {
     private String format;
 
     @Override
-    public Integer call() throws Exception {
-        String diff;
+    public final Integer call() throws Exception {
         try {
-            diff = Differ.generate(firstFilePath, secondFilePath, format);
-
+            System.out.println(Differ.generate(firstFilePath, secondFilePath, format));
+            return 0;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+            return errorCode;
         }
-        System.out.println(diff);
-        return 0;
     }
 
     public static void main(String[] args) {
